@@ -1,20 +1,20 @@
 <template>
   <div class="flex justify-center">
     <div class="container ">
-      <div class="bg-gray-800 rounded-xl p-8 ">
+      <div class="bg-gray-800 rounded-xl p-8 shadow-xl">
         <p class="text-white">Welcome in TODO: host name</p>
         <div class="bg-black-100 rounded-xl ">
-          <ul class="bg-white"></ul>
+          <ul></ul>
         </div>
         <div class="mt-5">
-        <input type="text" name="message"
-               class="mt-1 px-3 py-2 bg-white border shadow-sm border-gray-300
+          <input type="text" name="message"
+                 class="mt-1 px-3 py-2 bg-white border shadow-md border-gray-300
                   placeholder-gray-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500
                   block w-full rounded-md sm:text-sm focus:ring-1"
-               placeholder="Message" v-model="msg"/>
+                 placeholder="Message" v-model="msg"/>
         </div>
         <div class="mt-5">
-          <button class="hover:bg-fuchsia-600 border-2
+          <button class="hover:bg-fuchsia-600 border-2 shadow-xl
         border-green-500 bg-green-400 hover:bg-green-600 rounded-xl
         w-max py-2 px-3" v-on:click="send">
             Send
@@ -25,11 +25,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import io from 'socket.io-client';
+import { Options, Vue } from 'vue-class-component';
 
-export default {
-  name: 'About',
+@Options({
+  name: 'Channel',
   data() {
     return {
       msg: '',
@@ -54,5 +55,9 @@ export default {
       };
     },
   },
-};
+})
+
+export default class Channel extends Vue {
+  msg!: string
+}
 </script>
