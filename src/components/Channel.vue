@@ -38,13 +38,12 @@ import { Options, Vue } from 'vue-class-component';
       data: [''],
     };
   },
-  created() {
+  mounted() {
     this.socket = io('ws://localhost:3000');
     this.socket.on('msgFromServerToClient', (text: string) => {
       this.data.push(text);
     });
-  },
-  afterCreated() {
+
     this.socket.on('ClientConnect', (text: string) => {
       this.data.push(text);
     });
@@ -54,7 +53,7 @@ import { Options, Vue } from 'vue-class-component';
     });
   },
   methods: {
-    send(messsage : string) {
+    send(messsage: string) {
       this.socket.emit('msgFromClientToServer', messsage);
       this.message = '';
     },
