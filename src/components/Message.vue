@@ -24,6 +24,15 @@ import moment from 'moment';
       time: Date,
     },
   },
+  data() {
+    return {
+      currentTime: null,
+    };
+  },
+  created() {
+    this.currentTime = moment(new Date());
+    setInterval(() => this.updateCurrentTime(), 1 * 1000);
+  },
   computed: {
     idUser() {
       return this.message.message.split(' ')[0];
@@ -32,10 +41,13 @@ import moment from 'moment';
       return this.message.message.substring(this.idUser.length + 1);
     },
     formatTime() {
-      const currentTime: Date = new Date();
-      const currentMoment = moment(currentTime);
       const timeMoment = moment(this.message.time);
-      return currentMoment.diff(timeMoment, 'minutes') !== 0 ? `${currentMoment.diff(timeMoment, 'minutes')} min ago` : 'now';
+      return this.currentTime.diff(timeMoment, 'minutes') !== 0 ? `${this.currentTime.diff(timeMoment, 'minutes')} min ago` : 'now';
+    },
+  },
+  methods: {
+    updateCurrentTime() {
+      this.currentTime = moment(new Date());
     },
   },
 })

@@ -11,7 +11,8 @@
     <div class="mt-2 w-3/4 flex mx-auto">
       <input type="text" name="message"
              class="flex p-2 placeholder-gray-600 text-black text-18px w-full
-               flex-none border border-transparent rounded focus:border-blue-400"
+               flex-none border rounded focus:border-blue-300
+               shadow-xl"
              placeholder="Send message..."
              v-model="this.message"
              v-on:keyup.enter="send(this.message)"/>
@@ -31,12 +32,7 @@ import MessageList from '@/components/MessageList.vue';
     return {
       message: null,
       socket: null,
-      data: [
-        {
-          message: '',
-          time: Date,
-        },
-      ],
+      data: [],
     };
   },
   mounted() {
@@ -75,6 +71,11 @@ import MessageList from '@/components/MessageList.vue';
 
 export default class Channel extends Vue {
   message!: string
+
+  // data!: [{
+  //   message: string,
+  //   time: Date,
+  // }]
 
   socket!: Socket
 }
