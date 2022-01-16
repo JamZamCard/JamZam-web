@@ -1,10 +1,21 @@
 <template >
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/channel">Channel</router-link>
-  </div>
-  <router-view/>
+    <Channel/>
 </template>
+
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import Channel from '@/views/Channel.vue';
+
+@Options({
+  components: {
+    Channel,
+  },
+  mounted() {
+    document.body.classList.add('bg-gray-100');
+  },
+})
+export default class Home extends Vue {}
+</script>
 
 <style>
 #app {
@@ -13,18 +24,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

@@ -1,0 +1,49 @@
+<template>
+  <div class="bg-white rounded-xl w-3/4 mb-4 p-3 shadow-lg flex">
+    <div class="mr-5 ">
+      <img class="w-14 h-14 rounded-full"
+           :src="require('../assets/mikasa-chan.jpg')" alt="" width="384" height="512">
+    </div>
+    <div class="w-full">
+      <p class="flex-wrap font-bold text-left text-blue-500">{{ idUser }}</p>
+      <p class="flex-wrap text-md text-left">{{ messageComputed }}</p>
+      <p class="flex-wrap text-md text-right text-gray-400">{{ formatTime }}</p>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import moment from 'moment';
+
+@Options({
+  name: 'Message',
+  props: {
+    message: {
+      message: '',
+      time: Date,
+    },
+  },
+  computed: {
+    idUser() {
+      return this.message.message.split(' ')[0];
+    },
+    messageComputed() {
+      return this.message.message.substring(this.idUser.length + 1);
+    },
+    formatTime() {
+      const currentTime: Date = new Date();
+      const currentMoment = moment(currentTime);
+      const timeMoment = moment(this.message.time);
+      return currentMoment.diff(timeMoment, 'minutes') !== 0 ? `${currentMoment.diff(timeMoment, 'minutes')} min ago` : 'now';
+    },
+  },
+})
+export default class Message extends Vue {
+}
+
+</script>
+
+<style scoped>
+
+</style>
