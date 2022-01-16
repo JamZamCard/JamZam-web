@@ -1,5 +1,7 @@
 <template>
-  <Channel/>
+  <div class="container">
+    <Channel/>
+  </div>
 </template>
 
 <script lang="ts">

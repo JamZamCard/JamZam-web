@@ -1,28 +1,21 @@
 <template >
-    <Channel/>
+  <router-view/>
+  <!--  <Channel/>-->
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Channel from '@/views/Channel.vue';
+import Home from '@/views/Home.vue';
+// import Channel from '@/views/Channel.vue';
 
 @Options({
   components: {
-    Channel,
+    // Channel,
+    Home,
   },
   mounted() {
-    document.body.classList.add('bg-gray-100');
+    document.body.classList.add('bg-gray-800');
   },
 })
-export default class Home extends Vue {}
+export default class App extends Vue {}
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-</style>

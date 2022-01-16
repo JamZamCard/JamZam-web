@@ -1,7 +1,7 @@
 <template>
   <div class="block">
     <div class="mt-5 ">
-      <p class="text-gray-600 pb-5 text-2xl ">Messages</p>
+      <p class="text-gray-200 pb-5 text-2xl ml-16">Messages</p>
     </div>
 
     <div class="mt-2">
@@ -10,9 +10,10 @@
     </div>
     <div class="mt-2 w-3/4 flex mx-auto">
       <input type="text" name="message"
-             class="flex p-2 placeholder-gray-600 text-black text-18px w-full
-               flex-none border rounded focus:border-blue-300
-               shadow-xl"
+             class="p-2 placeholder-gray-300 text-black text-18px w-full
+               border rounded-lg focus:border-blue-800
+               border-gray-800
+               shadow-xl bg-gray-600 text-gray-200"
              placeholder="Send message..."
              v-model="this.message"
              v-on:keyup.enter="send(this.message)"/>

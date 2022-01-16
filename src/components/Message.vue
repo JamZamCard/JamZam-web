@@ -1,13 +1,13 @@
 <template>
-  <div class="bg-white rounded-xl w-3/4 mb-4 p-3 shadow-lg flex">
+  <div class="bg-gray-700 rounded-xl w-3/4 mb-4 p-3 shadow-xl flex">
     <div class="mr-5 ">
-      <img class="w-14 h-14 rounded-full"
-           :src="require('../assets/mikasa-chan.jpg')" alt="" width="384" height="512">
+      <img class="h-16 w-16 rounded-full"
+           :src="require('../assets/mikasa-chan.jpg')" alt="" >
     </div>
     <div class="w-full">
       <p class="flex-wrap font-bold text-left text-blue-500">{{ idUser }}</p>
-      <p class="flex-wrap text-md text-left">{{ messageComputed }}</p>
-      <p class="flex-wrap text-md text-right text-gray-400">{{ formatTime }}</p>
+      <p class="flex-wrap text-md text-left text-gray-300">{{ messageComputed }}</p>
+      <p class="flex-wrap text-md text-right text-gray-500">{{ formatTime }}</p>
     </div>
   </div>
 </template>
