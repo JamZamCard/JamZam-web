@@ -36,8 +36,24 @@ import MessageList from '@/components/MessageList.vue';
       data: [],
     };
   },
+  beforeRouteLeave() {
+    this.socket.on('disconnect', () => {
+      this.socket.disconnect();
+      this.socket.close();
+    });
+  },
   mounted() {
     this.socket = io('ws://localhost:3000');
+    this.socket.emit('joinChannel', this.$route.params.code);
+
+    this.socket.emit('connectedToChannel', (text: string) => {
+      const message = {
+        message: text,
+        time: new Date(),
+      };
+      this.data.push(message);
+    });
+
     this.socket.on('msgFromServerToClient', (text: string) => {
       const message = {
         message: text,
@@ -45,22 +61,22 @@ import MessageList from '@/components/MessageList.vue';
       };
       this.data.push(message);
     });
-
-    this.socket.on('ClientConnect', (text: string) => {
-      const message = {
-        message: text,
-        time: new Date(),
-      };
-      this.data.push(message);
-    });
-
-    this.socket.on('ClientDisconnect', (text: string) => {
-      const message = {
-        message: text,
-        time: new Date(),
-      };
-      this.data.push(message);
-    });
+    //
+    // this.socket.on('ClientConnect', (text: string) => {
+    //   const message = {
+    //     message: text,
+    //     time: new Date(),
+    //   };
+    //   this.data.push(message);
+    // });
+    //
+    // this.socket.on('ClientDisconnect', (text: string) => {
+    //   const message = {
+    //     message: text,
+    //     time: new Date(),
+    //   };
+    //   this.data.push(message);
+    // });
   },
   methods: {
     send(messsage: string) {
@@ -71,12 +87,10 @@ import MessageList from '@/components/MessageList.vue';
 })
 
 export default class Channel extends Vue {
-  message!: string
-
-  // data!: [{
-  //   message: string,
-  //   time: Date,
-  // }]
+  message?: {
+    message: string
+    time: Date
+  }
 
   socket!: Socket
 }
