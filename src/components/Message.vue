@@ -19,10 +19,7 @@ import moment from 'moment';
 @Options({
   name: 'Message',
   props: {
-    message: {
-      message: '',
-      time: Date,
-    },
+    message: {},
   },
   data() {
     return {
@@ -35,10 +32,10 @@ import moment from 'moment';
   },
   computed: {
     idUser() {
-      return this.message.message.split(' ')[0];
+      return this.message.sender;
     },
     messageComputed() {
-      return this.message.message.substring(this.idUser.length + 1);
+      return this.message.message;
     },
     formatTime() {
       const timeMoment = moment(this.message.time);

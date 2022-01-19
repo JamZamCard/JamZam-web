@@ -31,8 +31,10 @@ import MessageList from '@/components/MessageList.vue';
   components: { MessageList },
   data() {
     return {
+      username: null,
       message: null,
       socket: null,
+      channelCode: null,
       data: [],
     };
   },
@@ -43,44 +45,36 @@ import MessageList from '@/components/MessageList.vue';
     });
   },
   mounted() {
-    this.socket = io('ws://localhost:3000');
-    this.socket.emit('joinChannel', this.$route.params.code);
+    this.username = localStorage.getItem('username');
 
-    this.socket.emit('connectedToChannel', (text: string) => {
+    this.socket = io('ws://localhost:3000/channel');
+    this.socket.emit('joinChannel', { code: this.$route.params.code, username: this.username });
+    this.socket.on('hasJoinChannel', (data: {code: string, username: string}) => {
+      this.channelCode = data.code;
       const message = {
-        message: text,
+        sender: data.username,
+        message: 'has joined channel',
         time: new Date(),
       };
       this.data.push(message);
     });
 
-    this.socket.on('msgFromServerToClient', (text: string) => {
+    this.socket.on('msgFromServerToClient', (msgFromServer: { sender: string, code: string, text: string }) => {
       const message = {
-        message: text,
+        sender: msgFromServer.sender,
+        message: msgFromServer.text,
         time: new Date(),
       };
       this.data.push(message);
     });
-    //
-    // this.socket.on('ClientConnect', (text: string) => {
-    //   const message = {
-    //     message: text,
-    //     time: new Date(),
-    //   };
-    //   this.data.push(message);
-    // });
-    //
-    // this.socket.on('ClientDisconnect', (text: string) => {
-    //   const message = {
-    //     message: text,
-    //     time: new Date(),
-    //   };
-    //   this.data.push(message);
-    // });
   },
   methods: {
     send(messsage: string) {
-      this.socket.emit('msgFromClientToServer', messsage);
+      this.socket.emit('msgFromClientToServer', {
+        sender: this.username,
+        code: this.channelCode,
+        text: this.message,
+      });
       this.message = '';
     },
   },
@@ -88,6 +82,7 @@ import MessageList from '@/components/MessageList.vue';
 
 export default class Channel extends Vue {
   message?: {
+    sender: string
     message: string
     time: Date
   }

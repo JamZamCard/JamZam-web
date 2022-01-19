@@ -5,6 +5,27 @@
   <div class="flex justify-center">
     <div class="container border-1 bg-gray-700 border-gray-600 rounded-lg p-5 shadow-lg mt-5">
 
+      <div class="text-gray-200">Type a username</div>
+
+      <div class="flex justify-center">
+        <div class="flex-initial">
+          <input type="text" name="username"
+                 class="flex p-2 placeholder-gray-600 text-black text-18px w-full
+               flex-none border rounded-l-lg focus:border-blue-300 shadow-xl bg-gray-200"
+                 placeholder="Type username..." v-model="username"/>
+        </div>
+        <div class="flex-initial">
+          <div class="bg-gray-800 p-2 rounded-r-lg text-gray-200 h-11"
+               v-on:click="setUsername(this.username)">
+            Enter
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <div class="container border-1 bg-gray-700 border-gray-600 rounded-lg p-5 shadow-lg mt-5">
+
       <div class="text-gray-200">Join channel :</div>
 
       <div class="flex justify-center">
@@ -55,15 +76,28 @@ import router from '@/router';
     return {
       joinCode: '',
       createCode: '',
+      username: '',
     };
   },
   methods: {
     joinChannel() {
-      router.push({ name: 'Channel', params: { code: this.joinCode } });
+      if (this.username !== '') {
+        router.push({ name: 'Channel', params: { code: this.joinCode } });
+      } else {
+        alert('BOYAO');
+      }
+    },
+
+    setUsername(username: string) {
+      localStorage.setItem('username', username);
     },
 
     createChannel() {
-      router.push({ name: 'Channel', params: { code: this.createCode } });
+      if (this.username !== '') {
+        router.push({ name: 'Channel', params: { code: this.createCode } });
+      } else {
+        alert('BOYAO');
+      }
     },
   },
 })
